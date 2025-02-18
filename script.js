@@ -1,15 +1,36 @@
-var PrimeiroValor = parseInt(prompt("Digite o Primeiro Valor:"))
+var input = document.getElementById("input")
+var output = document.getElementById("output")
+var select = document.getElementById("select")
 
-var SegundoValor = parseInt(prompt("Digite o Segundo Valor:"))
+input.addEventListener("input", calcular)
+select.addEventListener("change", calcular)
 
+function calcular(){
+	var inputValue = Number(input.value)
+	var valorDolar = inputValue / 5.26
+	var valorEuro = inputValue / 6.21
+	var valorIene = inputValue / 0.048
+	var valorBitCoin = inputValue / 244362.00
+	switch(select.value){
+		case "dolar":
+			output.value = formatar(valorDolar,"USD")
+			output.placeholder = "Dolar"
+			break
+		case "euro":
+			output.value = formatar(valorEuro,"EUR")
+			output.placeholder = "Euro"
+			break
+		case "iene":
+			output.value = formatar(valorIene,"JPY")
+			output.placeholder = "Iene"
+			break
+		case "bitcoin":
+			output.value = "₿" + valorBitCoin.toFixed(10)
+			output.placeholder = "Bitcoin"
+	}
+}
 
-
-var Operacao = prompt("Digite 1 Para Fazer uma Divisão, 2 Para Multiplicação, 3 Para Soma e 4 Para Subtração: ")
-
-if (Operacao == 1) {var Resultado = PrimeiroValor / SegundoValor document.write("<h2>" + PrimeiroValor + " / " + SegundoValor + " = " + Resultado + "</h2>")}                                                                               
-else if (Operacao == 2) {var Resultado = PrimeiroValor * SegundoValor document.write("<h2>" + PrimeiroValor + " x " + SegundoValor + " = " + Resultado + "</h2>")} 
-
-  else if (Operacao == 3) {var Resultado = PrimeiroValor + SegundoValor document.write("<h2>" + PrimeiroValor + " + " + SegundoValor + " = " + Resultado + "</h2>")} 
-
-else if (Operacao == 4) {var Resultado = PrimeiroValor - SegundoValor document.write("<h2>" + PrimeiroValor + " - " + SegundoValor + " = " + Resultado + "</h2>")} else {document.write("<h2> Opção invalida </h2>")}
-
+function formatar(numero,currency){
+	numero = Number(numero)
+	return numero.toLocaleString('en', { style: 'currency', currency: currency })
+}
